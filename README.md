@@ -72,6 +72,12 @@ $ cmake .
 (if you are at the directory where CMakeLists.txt locates)
 ```
 
+## Document
+
+The document can be generated with [Doxygen](http://www.doxygen.nl/). (Not all APIs are documented yet.)
+
+The generated document is also available at [https://hhiro.net/ltolist/doxygen/](https://hhiro.net/ltolist/doxygen/) .
+
 ## Author
 
 H.Hiro
