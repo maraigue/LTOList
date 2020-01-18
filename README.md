@@ -40,7 +40,7 @@ To avoid this situation, for each node in BST, we write the numbers of left and 
 
 <img src="figure/BST_and_Indices.png" style="width:60%" alt="If we write indices (red) to the nodes, when we insert an element, all indices after it must be updated!">
 
-<img src="figure/BST_and_Indices.png" style="width:60%" alt="If we write numbers of left/right children (red) to the nodes, when we insert an element, only the parents of it are updated!">
+<img src="figure/BST_and_NumChildren.png" style="width:60%" alt="If we write numbers of left/right children (red) to the nodes, when we insert an element, only the parents of it are updated!">
 
 ## Usage
 
