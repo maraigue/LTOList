@@ -342,7 +342,8 @@ public:
                 side = 1;
             }
 
-            assert(pos != nullptr && pos != origin);
+            if(pos == nullptr) throw std::invalid_argument("Invalid iterator");
+            if(pos == origin) throw std::invalid_argument("Elements cannot be inserted after the end of the list");
 
             // ------------------------------------------------------------
             // If at least one element is in the tree
@@ -511,8 +512,8 @@ public:
         pNode remove(pNode pos) {
             // Remove the node
 
-            assert(pos != origin);
-            assert(pos != nullptr);
+            if(pos == nullptr) throw std::invalid_argument("Invalid iterator");
+            if(pos == origin) throw std::invalid_argument("The end of the list cannot be deleted");
 
             // In case the removed node is the only node in the tree
             if(pos == origin->o_front() && pos == origin->o_back()) {
@@ -1023,6 +1024,13 @@ public:
           const typename ::LTOList<TT>::iterator & it);
 
     private:
+        template<class IT1, class IT2>
+        void from_same_list(const IT1 & it1, const IT2 & it2){
+            if(it1.pbase_ != it2.pbase_){
+                throw std::invalid_argument("The difference of iterators cannot be taken for different lists");
+            }
+        }
+
         // Global functions that accesses private members of
         // `iterator`
         friend iterator operator+(iterator it, difference_type dir) {
@@ -1042,29 +1050,29 @@ public:
         }
         friend difference_type
         operator-(iterator it, iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return static_cast<difference_type>(
                      it.pbase_->position(it.n_)) -
                    static_cast<difference_type>(
                      other.pbase_->position(other.n_));
         }
         friend bool operator<(iterator it, iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) <
                    other.pbase_->position(other.n_);
         }
         friend bool operator<=(iterator it, iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) <=
                    other.pbase_->position(other.n_);
         }
         friend bool operator>(iterator it, iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) >
                    other.pbase_->position(other.n_);
         }
         friend bool operator>=(iterator it, iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) >=
                    other.pbase_->position(other.n_);
         }
@@ -1173,7 +1181,7 @@ public:
         }
         friend difference_type
         operator-(const_iterator it, const_iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return static_cast<difference_type>(
                      it.pbase_->position(it.n_)) -
                    static_cast<difference_type>(
@@ -1181,25 +1189,25 @@ public:
         }
         friend bool
         operator<(const_iterator it, const_iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) <
                    other.pbase_->position(other.n_);
         }
         friend bool
         operator<=(const_iterator it, const_iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) <=
                    other.pbase_->position(other.n_);
         }
         friend bool
         operator>(const_iterator it, const_iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) >
                    other.pbase_->position(other.n_);
         }
         friend bool
         operator>=(const_iterator it, const_iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) >=
                    other.pbase_->position(other.n_);
         }
@@ -1219,7 +1227,7 @@ public:
 
         friend difference_type
         operator-(const_iterator it, iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return static_cast<difference_type>(
                      it.pbase_->position(it.n_)) -
                    static_cast<difference_type>(
@@ -1227,49 +1235,49 @@ public:
         }
         friend difference_type
         operator-(iterator it, const_iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return static_cast<difference_type>(
                      it.pbase_->position(it.n_)) -
                    static_cast<difference_type>(
                      other.pbase_->position(other.n_));
         }
         friend bool operator<(const_iterator it, iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) <
                    other.pbase_->position(other.n_);
         }
         friend bool operator<(iterator it, const_iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) <
                    other.pbase_->position(other.n_);
         }
         friend bool operator<=(const_iterator it, iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) <=
                    other.pbase_->position(other.n_);
         }
         friend bool operator<=(iterator it, const_iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) <=
                    other.pbase_->position(other.n_);
         }
         friend bool operator>(const_iterator it, iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) >
                    other.pbase_->position(other.n_);
         }
         friend bool operator>(iterator it, const_iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) >
                    other.pbase_->position(other.n_);
         }
         friend bool operator>=(const_iterator it, iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) >=
                    other.pbase_->position(other.n_);
         }
         friend bool operator>=(iterator it, const_iterator other) {
-            assert(it.pbase_ == other.pbase_);
+            from_same_list(it.pbase_, other.pbase_);
             return it.pbase_->position(it.n_) >=
                    other.pbase_->position(other.n_);
         }
