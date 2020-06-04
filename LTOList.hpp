@@ -342,7 +342,7 @@ public:
                 side = 1;
             }
 
-            assert(pos != nullptr && pos != nullptr);
+            assert(pos != nullptr && pos != origin);
 
             // ------------------------------------------------------------
             // If at least one element is in the tree
