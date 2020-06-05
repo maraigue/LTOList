@@ -1401,6 +1401,8 @@ public:
     ///
     /// @param side If it is 0, the new element is stored before
     /// `position`. Otherwise it is stored after `position`.
+    /// If `position` is end(), `side` must be 0; otherwise
+    /// an exception `std::invalid_argument` is raised.
     /// @param position The iterator at which the new element is
     /// stored.
     /// @param val The new element. It is copied to be stored into
@@ -1412,6 +1414,9 @@ public:
     /// @param side 0であった場合、新しい要素は `position`
     /// の前に追加されます。そうでなければ `position`
     /// の後ろに追加されます。
+    /// もし `position` が end() である場合、
+    /// `side` は0でなければなりません。そうでなければ例外
+    /// `std::invalid_argument` が発生します。
     /// @param position 新しい要素を追加する位置を示すイテレータです。
     /// @param val 新しい要素です。 LTOList
     /// に追加するにあたりコピーされます。
@@ -1426,6 +1431,8 @@ public:
     ///
     /// @param side If it is 0, the new element is stored before
     /// `position`. Otherwise it is stored after `position`.
+    /// If `position` is end(), `side` must be 0; otherwise
+    /// an exception `std::invalid_argument` is raised.
     /// @param position The iterator at which the new element is
     /// stored.
     /// @param val The new element. It is "moved" to be stored into
@@ -1437,6 +1444,9 @@ public:
     /// @param side 0であった場合、新しい要素は `position`
     /// の前に追加されます。そうでなければ `position`
     /// の後ろに追加されます。
+    /// もし `position` が end() である場合、
+    /// `side` は0でなければなりません。そうでなければ例外
+    /// `std::invalid_argument` が発生します。
     /// @param position 新しい要素を追加する位置を示すイテレータです。
     /// @param val 新しい要素です。 LTOList
     /// に追加するにあたり「ムーブ」されます（すなわち、 `val`
@@ -1518,6 +1528,8 @@ public:
     ///
     /// @param side If it is 0, the new element is stored before
     /// `position`. Otherwise it is stored after `position`.
+    /// If `position` is end(), `side` must be 0; otherwise
+    /// an exception `std::invalid_argument` is raised.
     /// @param position The iterator at which the new element is
     /// stored.
     /// @param n The number of insertions.
@@ -1531,6 +1543,9 @@ public:
     /// @param side 0であった場合、新しい要素は `position`
     /// の前に追加されます。そうでなければ `position`
     /// の後ろに追加されます。
+    /// もし `position` が end() である場合、
+    /// `side` は0でなければなりません。そうでなければ例外
+    /// `std::invalid_argument` が発生します。
     /// @param position 新しい要素を追加する位置を示すイテレータです。
     /// @param n 追加回数です。
     /// @param val 新しい要素です。 LTOList
@@ -1547,6 +1562,8 @@ public:
     ///
     /// @param side If it is 0, the new element is stored before
     /// `position`. Otherwise it is stored after `position`.
+    /// If `position` is end(), `side` must be 0; otherwise
+    /// an exception `std::invalid_argument` is raised.
     /// @param position The iterator at which the new element is
     /// stored.
     /// @param n The number of insertions.
@@ -1561,6 +1578,9 @@ public:
     /// @param side 0であった場合、新しい要素は `position`
     /// の前に追加されます。そうでなければ `position`
     /// の後ろに追加されます。
+    /// もし `position` が end() である場合、
+    /// `side` は0でなければなりません。そうでなければ例外
+    /// `std::invalid_argument` が発生します。
     /// @param position 新しい要素を追加する位置を示すイテレータです。
     /// @param n 追加回数です。
     /// @param args 新しい要素です。 `args` を LTOList::value_type
@@ -1605,6 +1625,8 @@ public:
     ///
     /// @param side If it is 0, the new element is stored before
     /// `position`. Otherwise it is stored after `position`.
+    /// If `position` is end(), `side` must be 0; otherwise
+    /// an exception `std::invalid_argument` is raised.
     /// @param position The iterator at which the new element is
     /// stored.
     /// @param elem_begin The iterator (any iterator that points
@@ -1620,6 +1642,9 @@ public:
     /// @param side 0であった場合、新しい要素は `position`
     /// の前に追加されます。そうでなければ `position`
     /// の後ろに追加されます。
+    /// もし `position` が end() である場合、
+    /// `side` は0でなければなりません。そうでなければ例外
+    /// `std::invalid_argument` が発生します。
     /// @param position 新しい要素を追加する位置を示すイテレータです。
     /// @param elem_begin 追加する最初の要素を表すイテレータ（
     /// LTOList::iterator に限らず、 LTOList::value_type
