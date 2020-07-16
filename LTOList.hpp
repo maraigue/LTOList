@@ -409,11 +409,11 @@ public:
                     //        :                :
                     //      b[2]             r[1]
                     //       / \             /   \
-					//    r[1] [D]  -->  b[0]*   b[2]
+                    //    r[1] [D]  -->  b[0]*   b[2]
                     //     / \            / \     / \
-					//  r[0] [C]        [A] [B] [C] [D]
+                    //  r[0] [C]        [A] [B] [C] [D]
                     //   / \               
-					// [A] [B]
+                    // [A] [B]
                     //
                     // (*: repainted red to black)
                     // ([A], [B], [C] and [D] has the same 'black
@@ -444,11 +444,11 @@ public:
                     //    :                 :
                     //  b[2]              r[0]
                     //   / \              /   \
-					// [A] [1]r  -->  b[2]    b[1]*
+                    // [A] [1]r  -->  b[2]    b[1]*
                     //     / \         / \     / \
-					//  r[0] [D]     [A] [B] [C] [D]
+                    //  r[0] [D]     [A] [B] [C] [D]
                     //   / \               
-					// [B] [C]
+                    // [B] [C]
                     //
                     // (*: repainted red to black)
                     // ([A], [B], [C] and [D] has the same 'black
@@ -660,17 +660,17 @@ public:
                     //      _/   \_
                     //  %[r]      r[s]
                     //   / \       / \
-					// [A] [B]  b[C] [D]b
+                    // [A] [B]  b[C] [D]b
                     //
                     // is rotated as
                     //
                     //      b[s]
                     //       / \
-					//    r[a] [D]b
+                    //    r[a] [D]b
                     //     / \
-					//  %[r] [C]b
+                    //  %[r] [C]b
                     //   / \
-					// [A] [B]
+                    // [A] [B]
                     //
                     // Here, since the subtree [r] still has fewer
                     // 'black'-height by one, we rotate it for
@@ -690,7 +690,8 @@ public:
                     pos_adjust_parent->child[side_adjust_parent] =
                       pos_sibling;
 
-                    pos_adjust->recompute_n_children(1 - side_adjust);
+                    pos_adjust->recompute_n_children(0);
+                    pos_adjust->recompute_n_children(1);
                     pos_sibling->recompute_n_children(side_adjust);
                     pos_adjust_parent->recompute_n_children(
                       side_adjust_parent);
@@ -712,7 +713,7 @@ public:
                 //      _/   \_
                 //  %[r]      b[s]
                 //   / \       / \
-				// [A] [B]   [C] [D]
+                // [A] [B]   [C] [D]
 
                 if(
                   pos_sibling->child[side_adjust] &&
@@ -721,9 +722,9 @@ public:
                     //      _/   \_
                     //  %[r]      b[s]
                     //   / \       / \
-					// [A] [B]  r[n] [D]
+                    // [A] [B]  r[n] [D]
                     //           / \
-					//        [C1] [C2]
+                    //        [C1] [C2]
                     //
                     // is rotated as
                     //          [n]@ ... set the color that [a]
@@ -731,9 +732,9 @@ public:
                     //        _/   \_
                     //    b[a]*      [s]b
                     //     / \       / \
-					//  %[r] [C1] [C2] [D]
+                    //  %[r] [C1] [C2] [D]
                     //   / \
-					// [A] [B]
+                    // [A] [B]
                     pNode pos_adjust_parent = pos_adjust->parent;
                     size_type side_adjust_parent =
                       pos_adjust_parent->side_of_child(pos_adjust);
@@ -781,9 +782,9 @@ public:
                     //      _/   \_
                     //  %[r]      b[s]
                     //   / \       / \
-					// [A] [B]   [C] [n]r
+                    // [A] [B]   [C] [n]r
                     //               / \
-					//            [D1] [D2]
+                    //            [D1] [D2]
                     //
                     // is rotated as
                     //          [s]@ ... set the color that [a]
@@ -791,9 +792,9 @@ public:
                     //        _/   \_
                     //    b[a]*     b[n]*
                     //     / \       / \
-					//  %[r] [C]  [D1] [D2]
+                    //  %[r] [C]  [D1] [D2]
                     //   / \
-					// [A] [B]
+                    // [A] [B]
                     pNode pos_adjust_parent = pos_adjust->parent;
                     size_type side_adjust_parent =
                       pos_adjust_parent->side_of_child(pos_adjust);
@@ -818,7 +819,8 @@ public:
                     pos_adjust_parent->child[side_adjust_parent] =
                       pos_sibling;
 
-                    pos_adjust->recompute_n_children(1 - side_adjust);
+                    pos_adjust->recompute_n_children(0);
+                    pos_adjust->recompute_n_children(1);
                     pos_sibling->recompute_n_children(0);
                     pos_sibling->recompute_n_children(1);
 
@@ -829,7 +831,7 @@ public:
                     //      _/   \_
                     //  %[r]      b[s]
                     //   / \       / \
-					// [A] [B]  b[C] [D]b
+                    // [A] [B]  b[C] [D]b
                     //
                     // is modified as
                     //
@@ -837,7 +839,7 @@ public:
                     //      _/   \_
                     //  %[r]      r[s]*
                     //   / \       / \
-					// [A] [B]  b[C] [D]b
+                    // [A] [B]  b[C] [D]b
                     //
                     // Here, in case [a] is black before the
                     // modification, this modification makes the
