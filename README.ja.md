@@ -78,7 +78,7 @@ $ cmake .
 
 [Doxygen](http://www.doxygen.nl/)で生成できます（すべてのAPIがドキュメント化されてはいません）。
 
-生成されたドキュメントは [https://hhiro.net/ltolist/doxygen/](https://hhiro.net/ltolist/doxygen/) でも閲覧できます。
+生成されたドキュメントは [https://hhiro.net/ltolist/doxygen-ja/](https://hhiro.net/ltolist/doxygen-ja/) でも閲覧できます。
 
 ## 作者
 
