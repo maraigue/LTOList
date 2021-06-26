@@ -15,7 +15,8 @@ LTOListは、二分探索木の各ノードに、その子要素がいくつあ�
 ### Tell me if you know ...
 
 Such a data structure seems to be known to many others, but I could not find a specific name.
--   Example: [https://kaiseh.hatenadiary.org/entry/20071231/1199122020](https://kaiseh.hatenadiary.org/entry/20071231/1199122020); in Japanese, implemented by a "skip list" instead of BST
+-   Example 1: [https://kaiseh.hatenadiary.org/entry/20071231/1199122020](https://kaiseh.hatenadiary.org/entry/20071231/1199122020); in Japanese, implemented by a "skip list" instead of BST
+-   Example 2: [https://logfiles.hatenablog.com/entry/2016/12/02/103200](https://logfiles.hatenablog.com/entry/2016/12/02/103200); in Japanese, implemented by a "Treap" (BST with randomness)
 
 If you know a specific name, please tell me.
 
