@@ -12,42 +12,43 @@ LTOList (Logarithmic-Time-Operation List) は二分探索木を用いた線形�
 
 LTOListは、二分探索木の各ノードに、その子要素がいくつあるかを保持するという設計をしています。また「赤黒木」を一から実装しています。
 
-### Tell me if you know ...
+### 情報求む
 
-Such a data structure seems to be known to many others, but I could not find a specific name.
--   Example 1: [https://kaiseh.hatenadiary.org/entry/20071231/1199122020](https://kaiseh.hatenadiary.org/entry/20071231/1199122020); in Japanese, implemented by a "skip list" instead of BST
--   Example 2: [https://logfiles.hatenablog.com/entry/2016/12/02/103200](https://logfiles.hatenablog.com/entry/2016/12/02/103200); in Japanese, implemented by a "Treap" (BST with randomness)
+このようなデータ構造は他にも考えている人は多数いるようです。ただ、何か名前が付いているのかというとそうではないようです。
 
-If you know a specific name, please tell me.
+-   例1: [https://kaiseh.hatenadiary.org/entry/20071231/1199122020](https://kaiseh.hatenadiary.org/entry/20071231/1199122020)（日本語記事。二分探索木ではなく「スキップリスト」で実装）
+-   例2: [https://logfiles.hatenablog.com/entry/2016/12/02/103200](https://logfiles.hatenablog.com/entry/2016/12/02/103200)（日本語記事。ランダム性を用いる二分探索木である「Treap」で実装）
 
-### Caveats
+もし「こういう名前が付いたデータ構造である」というのをご存知の方がいらっしゃったら、お知らせください。
 
-Since O(log n) time is achieved by tree operations (namely, pointer operations), in reality insertions and deletions may be slower than those for VLA that theoretically requires O(n) time but much more memory-efficient.
+### 注意
 
-The implementation of LTOList is based on BST, but more memory-consuming than ordinary BST that orders elements automatically: ordinary BST requires three pointers for each list element, while LTOList requires five.
+O(log n) 時間を実現するのに木構造の操作（すなわち、ポインタの操作）を用いているため、実際の挿入や削除の実行時間としては、可変長配列（理論的には O(n) 時間が必要だがメモリ効率がよい）より遅くなるかもしれません。
 
-### Answers to anticipated questions
+またLTOListの二分探索木は通常の二分探索木よりもメモリを消費します。通常の二分探索木は1要素につきポインタ変数が3つ必要なのに対し、LTOListは5つ必要なためです。
 
--   Why a "red-black tree" is implemented from scratch? Can it be implemented by C++-standard BST-based structures, for example, `std::map`?
-    -   No. The "balancing", an essential operation of BST that assures the tree height being O(log n), of `std::map` is based on the "total order" of elements. LTOList must use a different order from the total order to balance the tree; This is why LTOList cannot be implemented by `std::map` or the like.
+### 想定される質問への回答
 
-## Implementation details
+-   赤黒木を一から実装しているのはなぜですか？ C++の標準ライブラリで実装されている `std::map` を使って実装できたりしなかったのでしょうか？
+    -   できないと判断しました。赤黒木の高さの平準化操作（木の高さを O(log n) に抑える）について、 `std::map` のそれは、要素の「全順序」（要素同士の大小関係が定められていて、その順序で並べる）でしかできないようになっています。LTOListの高さの平準化操作はそれではできないのです。
 
-How do we achieve O(log n) time for all of a random access, an insertion and a deletion in the worst case?
+## 実装の詳細
 
-First suppose that, for each node in BST, we write the index of the element. However, when we insert or delete an element, the updates of the indices require O(n) time, as an insertion or deletion for VLA requires.
+ランダムアクセスも要素の追加・削除も、最悪ケースで O(log n) 時間で実現するにはどうすればよいのでしょうか。
 
-To avoid this situation, for each node in BST, we write the numbers of left and right children. Then, when we insert or delete an element, the updates of the numbers require only O(log n) time; it is sufficient to update the numbers for only the nodes from the inserted or deleted nodes to the root node.
+まず仮に、二分探索木の各ノードに、その要素のインデックス（全体で何番目であるか）であるかを書き込むとしましょう。しかしそれでは、挿入や削除をしたときにそれ以降のインデックスを書き換えなければならず、可変長配列の場合と同様に O(n) 時間が必要となります。
+
+これを避けるため、二分探索木の各ノードに書き込むものを、「左の子孫の数」と「右の子孫の数」とします。そうすると、挿入や削除をした際にこれらを書き換えるのに必要な計算時間は O(log n) で済みます。更新が起きた場所とその祖先のノードだけ書き換えればよいためです。
 
 <img src="figure/BST_and_Indices.png" style="width:60%" alt="If we write indices (red) to the nodes, when we insert an element, all indices after it must be updated!">
 
 <img src="figure/BST_and_NumChildren.png" style="width:60%" alt="If we write numbers of left/right children (red) to the nodes, when we insert an element, only the parents of it are updated!">
 
-## Usage
+## 利用方法
 
-LTOTree has similar APIs to those of `std::vector`; almost all APIs are implemented except for memory allocations (e.g., `std::vector<T>::reserve`).
+LTOListでは `std::vector` に似たAPIを実装しています。ほとんどのAPIが実装されていますが、メモリ確保関連のAPI (`std::vector<T>::reserve` など) はLTOListには不要なため存在しません。
 
-A large difference from `std::vector` is that, since LTOTree is implemented as a BST, given an iterator we can insert another element either before or after the iterator.
+LTOListのAPIにおける `std::vector` との大きな違いとして、LTOListは二分探索木であるため、要素を挿入する際、イテレータの前に挿入するか後に挿入するかを選べるというものがあります。
 
 ```
 LTOList<double> ll;
@@ -57,34 +58,34 @@ ll.insert(0, iter, 2.5); // insert 2.5 before 'iter'
 ll.insert(1, iter, 4.5); // insert 4.5 after 'iter'
 ```
 
-## Examples
+## 例
 
-You can build examples by the following command (example for `LTOList_example_poppush.cpp`, using GCC):
+例として用意したプログラムは、以下のコマンドでビルドできます（例として、GCCを用いて `LTOList_example_poppush.cpp` の実行ファイルを生成する場合を示します）。
 
 ```
 $ g++ LTOList_example_poppush.cpp
 ```
 
-You can also create a `Makefile` that builds examples by [CMake](https://cmake.org/): if you have CMake, the following command will generate a `Makefile` for all examples:
+また、[CMake](https://cmake.org/)が利用可能であれば、これらの例をビルドするための `Makefile` を生成することもできます。以下のコマンドで生成できます。
 
 ```
 $ cmake .
 
-(if you are at the directory where CMakeLists.txt locates)
+(CMakeLists.txt があるディレクトリにいる場合)
 ```
 
-## Document
+## ドキュメント
 
-The document can be generated with [Doxygen](http://www.doxygen.nl/). (Not all APIs are documented yet.)
+[Doxygen](http://www.doxygen.nl/)で生成できます（すべてのAPIがドキュメント化されてはいません）。
 
-The generated document is also available at [https://hhiro.net/ltolist/doxygen/](https://hhiro.net/ltolist/doxygen/) .
+生成されたドキュメントは [https://hhiro.net/ltolist/doxygen/](https://hhiro.net/ltolist/doxygen/) でも閲覧できます。
 
-## Author
+## 作者
 
 H.Hiro
 
-- e-mail: [main@hhiro.net](mailto:main@hhiro.net)
-- Website: [https://hhiro.net/](https://hhiro.net/)
+- メール: [main@hhiro.net](mailto:main@hhiro.net)
+- ウェブサイト: [https://hhiro.net/](https://hhiro.net/)
 - GitHub: [https://github.com/maraigue](https://github.com/maraigue)
 
-Published under the MIT license. See LICENSE.txt for details.
+MITライセンスで提供します。詳細は LICENSE.txt をご覧ください。
