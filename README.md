@@ -45,9 +45,9 @@ To avoid this situation, for each node in BST, we write the numbers of left and 
 
 ## Usage
 
-LTOTree has similar APIs to those of `std::vector`; almost all APIs are implemented except for memory allocations (e.g., `std::vector<T>::reserve`).
+LTOList has similar APIs to those of `std::vector`; almost all APIs are implemented except for memory allocations (e.g., `std::vector<T>::reserve`).
 
-A large difference from `std::vector` is that, since LTOTree is implemented as a BST, given an iterator we can insert another element either before or after the iterator.
+A large difference from `std::vector` is that, since LTOList is implemented as a BST, given an iterator we can insert another element either before or after the iterator.
 
 ```
 LTOList<double> ll;
